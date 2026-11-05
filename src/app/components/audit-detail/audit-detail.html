@@ -1,0 +1,49 @@
+@if (audit) {
+  <div class="audit-detail-container">
+    <a routerLink="/audits" class="back-link">← Tornar al llistat</a>
+    
+    <h2>Detall del Registre d'Auditoria</h2>
+
+    @if (successMessage) {
+      <div class="alert success">{{ successMessage }}</div>
+    }
+    @if (errorMessage) {
+      <div class="alert error">{{ errorMessage }}</div>
+    }
+
+    <div class="card">
+      <div class="card-header">
+        <p><strong>ID del Registre:</strong> <span>{{ audit._id }}</span></p>
+        <span class="badge" [ngClass]="audit.actionType.toLowerCase()">{{ audit.actionType }}</span>
+      </div>
+      
+      <div class="card-body">
+        <p><strong>Data de l'acció:</strong> {{ audit.createdAt | date:'medium' }}</p>
+        
+        <h3>Subdocuments de Canvis:</h3>
+        <ul class="detail-changes-list">
+          @for (c of audit.changes; track c.fieldName) {
+            <li>
+              <div class="change-item">
+                <span class="field-name">{{ c.fieldName }}</span>
+                <div class="change-values">
+                  <span class="old-val">Antic: {{ c.oldValue || 'N/A' }}</span>
+                  <span class="arrow">➔</span>
+                  <span class="new-val">Nou: {{ c.newValue || 'N/A' }}</span>
+                </div>
+              </div>
+              <small class="modified-status">Modificat: {{ c.isModified ? 'Sí' : 'No' }}</small>
+            </li>
+          }
+        </ul>
+
+        <!-- Accions només per a Administradors -->
+        @if (isAdmin && audit.actionType === 'UPDATE' && audit.previousActivityState) {
+          <div class="admin-actions">
+            <button (click)="revertChange(audit._id)" class="btn-revert">Revertir aquest canvi</button>
+          </div>
+        }
+      </div>
+    </div>
+  </div>
+}

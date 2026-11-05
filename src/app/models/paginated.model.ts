@@ -12,6 +12,7 @@ export interface PageParams {
   subcategory?: string;
   reason?: string;
   targetType?: string;
+  actionType?: string;
 }
 
 // Forma común de la respuesta paginada que devuelve el servidor.

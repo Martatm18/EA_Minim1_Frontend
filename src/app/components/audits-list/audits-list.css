@@ -1,0 +1,137 @@
+.audits-container {
+  padding: 30px;
+  max-width: 1200px;
+  margin: 0 auto;
+  font-family: inherit;
+}
+
+.audits-container h2 {
+  color: #d97706; /* Taronja fosc / àmbar */
+  margin-bottom: 20px;
+  font-size: 1.8rem;
+  border-bottom: 2px solid #fed7aa;
+  padding-bottom: 10px;
+}
+
+.filters-bar {
+  display: flex;
+  gap: 15px;
+  margin-bottom: 25px;
+}
+
+.form-control, .form-select {
+  padding: 10px 14px;
+  border: 1px solid #fdba74;
+  border-radius: 6px;
+  flex: 1;
+  font-size: 0.95rem;
+  background-color: #fffaf5;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.form-control:focus, .form-select:focus {
+  outline: none;
+  border-color: #f97316;
+  box-shadow: 0 0 0 3px rgba(249, 115, 22, 0.15);
+}
+
+.table-responsive {
+  background: #ffffff;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px -1px rgba(234, 88, 12, 0.05), 0 2px 4px -1px rgba(234, 88, 12, 0.03);
+  overflow: hidden;
+  border: 1px solid #ffedd5;
+}
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
+  text-align: left;
+}
+
+.table th, .table td {
+  padding: 14px 16px;
+  border-bottom: 1px solid #ffedd5;
+}
+
+.table th {
+  background-color: #fff7ed;
+  color: #c2410c;
+  font-weight: 600;
+}
+
+.table tbody tr:hover {
+  background-color: #fffaf5;
+}
+
+.badge {
+  padding: 5px 10px;
+  border-radius: 6px;
+  font-size: 0.8rem;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+}
+.badge.update { background-color: #fef3c7; color: #b45309; }
+.badge.create { background-color: #dcfce7; color: #15803d; }
+.badge.delete, .badge.revert { background-color: #fee2e2; color: #b91c1c; }
+
+.changes-list {
+  margin: 0;
+  padding-left: 15px;
+  font-size: 0.9rem;
+  color: #4b5563;
+}
+
+.btn-detail {
+  color: #f97316;
+  text-decoration: none;
+  font-weight: 600;
+  transition: color 0.2s;
+}
+
+.btn-detail:hover {
+  color: #c2410c;
+  text-decoration: underline;
+}
+
+.pagination-controls {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 20px;
+  background: #fff7ed;
+  padding: 12px 20px;
+  border-radius: 8px;
+  border: 1px solid #fed7aa;
+}
+
+.btn-page {
+  background-color: #f97316;
+  color: white;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: 600;
+  transition: background-color 0.2s;
+}
+
+.btn-page:hover:not(:disabled) {
+  background-color: #ea580c;
+}
+
+.btn-page:disabled {
+  background-color: #fed7aa;
+  cursor: not-allowed;
+}
+
+.page-info {
+  font-weight: 600;
+  color: #9a3412;
+}
+
+.loading-text, .empty-row {
+  text-align: center;
+  color: #9a3412;
+  padding: 20px;
+}

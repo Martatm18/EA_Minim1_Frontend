@@ -1,0 +1,75 @@
+<div class="audits-container">
+  <h2>Registre d'Auditoria d'Activitats</h2>
+
+  <!-- Cercador combinat (Text + Filtre específic d'acció) -->
+  <div class="filters-bar">
+    <input 
+      type="text" 
+      [(ngModel)]="search" 
+      (input)="onSearchChange()" 
+      placeholder="Cerca per text o camp modificat..." 
+      class="form-control"
+    />
+
+    <select [(ngModel)]="actionType" (change)="onSearchChange()" class="form-select">
+      <option value="">Totes les accions</option>
+      <option value="CREATE">CREATE</option>
+      <option value="UPDATE">UPDATE</option>
+      <option value="DELETE">DELETE</option>
+      <option value="RESTORE">RESTORE</option>
+      <option value="REVERT">REVERT</option>
+    </select>
+  </div>
+
+  @if (loading) {
+    <p class="loading-text">Carregant registres...</p>
+  } @else {
+    <div class="table-responsive">
+      <table class="table">
+        <thead>
+          <tr>
+            <th>Data</th>
+            <th>Acció</th>
+            <th>Activitat</th>
+            <th>Canvis realitzats</th>
+            <th>Accions</th>
+          </tr>
+        </thead>
+        <tbody>
+          @for (audit of audits; track audit._id) {
+            <tr>
+              <td>{{ audit.createdAt | date:'short' }}</td>
+              <td>
+                <span class="badge" [ngClass]="audit.actionType.toLowerCase()">
+                  {{ audit.actionType }}
+                </span>
+              </td>
+              <td>{{ typeof audit.activityId === 'object' ? audit.activityId.title : audit.activityId }}</td>
+              <td>
+                <ul class="changes-list">
+                  @for (change of audit.changes; track change.fieldName) {
+                    <li><strong>{{ change.fieldName }}:</strong> {{ change.oldValue }} ➔ {{ change.newValue }}</li>
+                  }
+                </ul>
+              </td>
+              <td>
+                <a [routerLink]="['/audits', audit._id]" class="btn-detail">Veure detall</a>
+              </td>
+            </tr>
+          } @empty {
+            <tr>
+              <td colspan="5" class="empty-row">No s'han trobat registres d'auditoria.</td>
+            </tr>
+          }
+        </tbody>
+      </table>
+    </div>
+
+    <!-- Paginació -->
+    <div class="pagination-controls">
+      <button (click)="prevPage()" [disabled]="page === 1" class="btn-page">Anterior</button>
+      <span class="page-info">Pàgina {{ page }} de {{ totalPages }}</span>
+      <button (click)="nextPage()" [disabled]="page >= totalPages" class="btn-page">Següent</button>
+    </div>
+  }
+</div>
