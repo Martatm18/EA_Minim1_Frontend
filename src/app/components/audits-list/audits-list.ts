@@ -49,7 +49,7 @@ export class AuditsList implements OnInit {
     }).subscribe({
       next: (response) => {
         this.audits = response.data;
-        this.totalPages = response.totalPages;
+        this.totalPages = Math.max(1, response.totalPages);
         this.loading = false;
       },
       error: (err) => {

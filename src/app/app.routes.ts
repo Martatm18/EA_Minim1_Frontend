@@ -10,65 +10,78 @@ import { ReportForm } from './components/report-form/report-form';
 import { Register } from './components/register/register';
 import { UserForm } from './components/user-form/user-form';
 import { UsersList } from './components/users-list/users-list';
+import { AuditsList } from './components/audits-list/audits-list';       // Importem llistat d'auditories
+import { AuditDetail } from './components/audit-detail/audit-detail';   // Importem detall d'auditoria
 import { activityPublisherGuard, adminGuard, authGuard, guestGuard } from './guards/auth.guard';
 
 export const routes: Routes = [
-  // Las pantallas de administración requieren una cuenta ADMIN.
-  { path: '', component: Home, canActivate: [authGuard], title: 'Inicio' },
-  { path: 'login', component: Login, canActivate: [guestGuard], title: 'Iniciar sesión' },
-  { path: 'register', component: Register, canActivate: [guestGuard], title: 'Crear cuenta' },
-  { path: 'users', component: UsersList, canActivate: [authGuard, adminGuard], title: 'Usuarios' },
+  { path: '', component: Home, canActivate: [authGuard], title: 'Inici' },
+  { path: 'login', component: Login, canActivate: [guestGuard], title: 'Iniciar sessió' },
+  { path: 'register', component: Register, canActivate: [guestGuard], title: 'Crear compte' },
+  { path: 'users', component: UsersList, canActivate: [authGuard, adminGuard], title: 'Usuaris' },
   {
     path: 'users/new',
     component: UserForm,
     canActivate: [authGuard, adminGuard],
-    title: 'Nuevo usuario',
+    title: 'Nou usuari',
   },
   {
     path: 'users/:id/edit',
     component: UserForm,
     canActivate: [authGuard, adminGuard],
-    title: 'Editar usuario',
+    title: 'Editar usuari',
   },
   {
     path: 'activities',
     component: ActivitiesList,
-    // Cualquier persona con sesión puede consultar las actividades activas.
     canActivate: [authGuard],
-    title: 'Actividades',
+    title: 'Activitats',
   },
   {
     path: 'activities/new',
     component: ActivityForm,
-    // Pueden publicar actividades ADMIN y STORE_HOST.
-    canActivate: [authGuard, activityPublisherGuard],
-    title: 'Nueva actividad',
+    canActivate: [authGuard, activityPublisherGuard], 
+    title: 'Nova activitat',
   },
   {
     path: 'activities/:id/edit',
     component: ActivityForm,
     canActivate: [authGuard, adminGuard],
-    title: 'Editar actividad',
+    title: 'Editar activitat',
   },
   {
     path: 'reports',
     component: ReportsList,
     canActivate: [authGuard, adminGuard],
-    title: 'Reportes',
+    title: 'Rèpords',
   },
   {
     path: 'reports/new',
     component: ReportForm,
-    // Cualquier persona con sesión puede enviar un reporte.
     canActivate: [authGuard],
-    title: 'Nuevo reporte',
+    title: 'Nou report',
   },
   {
     path: 'reports/:id/edit',
     component: ReportForm,
     canActivate: [authGuard, adminGuard],
-    title: 'Revisar reporte',
+    title: 'Revisar report',
   },
-  { path: 'chat', component: Chat, canActivate: [authGuard], title: 'Chat' },
+  
+  //Afegim les rutes d'auditoria 
+  {
+    path: 'audits',
+    component: AuditsList,
+    canActivate: [authGuard, adminGuard], // Només l'admin pot veure l'auditoria
+    title: 'Registre d\'Auditoria',
+  },
+  {
+    path: 'audits/:id',
+    component: AuditDetail,
+    canActivate: [authGuard, adminGuard], // Només l'admin pot veure el detall i revertir
+    title: 'Detall d\'Auditoria',
+  },
+  
+  { path: 'chat', component: Chat, canActivate: [authGuard], title: 'Xat' },
   { path: '**', redirectTo: '' },
 ];
